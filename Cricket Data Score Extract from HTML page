@@ -1,0 +1,201 @@
+######PROGRAM BY CHAITANYA#######
+
+
+import xlsxwriter
+import urllib
+from bs4 import BeautifulSoup
+sock = urllib.urlopen("http://www.espncricinfo.com/ci/engine/match/903605.html") 
+htmlSource = sock.read()                            
+soup = BeautifulSoup(htmlSource, 'html.parser')
+workbook=xlsxwriter.Workbook('C:\\Users\\SSS2014008\\Desktop\\test.xlsx')
+worksheet=workbook.add_worksheet()
+list=["Match.NO","Player","Country","Opponent","Runs","Balls","4's","6's","Strike rate","Dismisal type","Place","Innings total","Extras"]
+c=len(list)
+print c
+row=0
+col=0
+for i in range(0,c):
+    worksheet.write(row,col,list[i])
+    col+=1
+
+data=soup.find_all("div",{"class":"space-top-bottom-5"})
+#data1=data.find("headlink")
+for link in data:
+ try:
+  c=link.contents[0].text
+ except:
+     pass
+row=1
+col=0
+for i in range(0,44):
+ worksheet.write(row,col,c)
+ row+=1
+row=1
+col=1
+data=soup.find_all("td",{"class":"batsman-name"})
+
+for item in data:
+    worksheet.write(row,col,item.contents[0].text)
+    row+=1
+h=[]    
+data1=soup.find_all("td",{"class":"bold"})
+for link in data1:
+    try:
+      h.append(link.contents[0])
+    except:
+      pass
+row=1
+col=4
+
+for i in range(0,11):
+    worksheet.write(row,col,h[i])
+    row+=1
+row=12
+col=4
+for i in range(13,24):
+ worksheet.write(row,col,h[i])
+ row+=1
+row=23
+col=4
+for i in range(26,37):
+    worksheet.write(row,col,h[i])
+    row+=1
+row=34
+col=4
+for i in range(39,50):
+    worksheet.write(row,col,h[i])
+    row+=1
+
+country={"India","South Africa"}
+row=1
+col=2
+for i in range(0,11):
+ worksheet.write(row,col,'India')
+ row+=1
+row=12
+col=2
+for i in range(0,11):
+    worksheet.write(row,col,'South Africa')
+    row+=1
+row=23
+col=2
+for i in range(0,11):
+    worksheet.write(row,col,'India')
+    row+=1
+row=34
+col=2
+for i in range(0,11):
+    worksheet.write(row,col,'South Africa')
+    row+=1
+c=[]
+
+
+#data=soup.find_all("td")
+#c=[]
+#for link in data:
+ #   c.append(link.text)
+#print c[5]
+#print c[16]
+#print c[27]
+#row=2
+#col=4
+#i=5
+#c=[]
+#for link in data:
+    #c.append(link.text)
+    #try:
+     #   worksheet.write(row,col,c[5])
+    #except:
+     #   pass
+    #i+=11
+    #row+=1
+#data=soup.find_all("td")
+#c=[]
+#for link in data:
+    #c.append(link.text)
+
+#row=1
+#col=5
+#i=5
+#for r in range(0,50):
+    #worksheet.write(row,col,c[i])
+    #row+=1
+    #i+=11
+
+data=soup.find_all("td");
+c=[]
+for link in data:
+    c.append(link.text)
+col=5
+col1=6
+row=1
+i=4
+i1=6
+for r in range(1,13):
+    worksheet.write(row,col,c[i])
+    worksheet.write(row,col1,c[i1])
+    worksheet.write(row,col1+1,c[i1+1])
+    row=row+1
+    i=i+11
+    i1=i1+11
+col=5
+col1=6
+row=12
+i=218
+i1=219
+for r in range(1,13):
+    worksheet.write(row,col,c[i])
+    worksheet.write(row,col1,c[i1])
+    worksheet.write(row,col1+1,c[i1+1])
+    row=row+1
+    i=i+11
+    i1=i1+11
+col=5
+col1=6
+row=23
+i=418
+i1=419
+for r in range(1,13):
+    worksheet.write(row,col,c[i])
+    worksheet.write(row,col1,c[i1])
+    worksheet.write(row,col1+1,c[i1+1])
+    row=row+1
+    i=i+11
+    i1=i1+11
+col=5
+col1=6
+row=34
+i=625
+i1=626
+for r in range(1,13):
+    worksheet.write(row,col,c[i])
+    worksheet.write(row,col1,c[i1])
+    worksheet.write(row,col1+1,c[i1+1])
+    row=row+1
+    i=i+11
+    i1=i1+11
+row=1
+col=12
+data=soup.find_all("td",{"class":"bold"})
+c=[]
+for links in data:
+    c.append(links.text);
+for i in range(0,11):
+    worksheet.write(row,col,c[11])
+    row=row+1
+row=12
+col=12
+for i in range(0,11):
+    worksheet.write(row,col,c[29])
+    row=row+1
+row=23
+col=12
+for i in range(0,11):
+    worksheet.write(row,col,c[47])
+    row=row+1
+row=34
+col=12
+for i in range(0,11):
+ worksheet.write(row,col,c[65])
+ row=row+1
+workbook.close()    
