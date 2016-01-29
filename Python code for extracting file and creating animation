@@ -1,0 +1,44 @@
+import numpy as np
+import xlrd
+from matplotlib import pyplot as plt
+from matplotlib import animation
+import winsound
+val=xlrd.open_workbook('new.xlsx')
+sheet=val.sheets()[0]
+length=sheet.nrows
+beds=[]
+set=[]
+for x in range(0,length):
+    set.append(x)
+for r in range(1,length-1):
+      beds.append(sheet.cell(r,4).value)
+      beds[0]=int(beds[0])
+for i in range(1,length):
+     if(beds[0]>3):
+        winsound.Beep(300,2000)
+        print beds[i]
+      
+        
+    
+
+fig=plt.figure()
+ax=plt.axes(xlim=(0,10),ylim=(1,5))
+line,=ax.plot([],[],lw=2)
+def init():
+    line.set_data([],[])
+    return line,
+    
+
+def animate(i):
+    
+    #print x 
+    line.set_data(set,beds[i])
+    return line,
+    
+   
+#anim = animation.FuncAnimation(fig, animate, init_func=init,
+
+ #                              frames=200, interval=20, blit=True)
+
+
+plt.show()
