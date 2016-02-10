@@ -1,0 +1,33 @@
+clc
+clear all 
+close all
+obj = VideoReader('C:\Users\SSS2015047\Desktop\newtest.mp4');
+frames=get(obj,'NumberofFrames')
+targetPath='C:\Users\SSS2015047\Desktop\target'
+for range=1:frames
+comparedFrame=rgb2gray(read(obj,range))
+threshold=graythresh(comparedFrame)
+binaryImage=im2bw(comparedFrame,threshold)
+binaryImage_Cropped=imcrop(binaryImage,[281 177 20 39])
+imshow(binaryImage_Cropped)
+count=0
+[m,n]=size(binaryImage_Cropped)
+for i =1:m
+    for j=1:n
+        if(binaryImage_Cropped(i,j)==0)
+            count=count+1
+            if(count>70)
+                baseFileName=sprintf('Frame %d.png',range);
+                outputFullfile=fullfile(targetPath,baseFileName)
+                imwrite(comparedFrame,outputFullfile,'png')
+            end
+                
+       end
+    end
+    
+end
+count=0
+end
+
+
+        
