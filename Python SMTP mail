@@ -1,0 +1,25 @@
+import smtplib
+ 
+#this is your list of email addresses to which email has to be sent.
+addresslist = ['chaitanyayv.sssbi@gmail.com'] 
+ 
+ 
+fromaddr = 'chaitanya19924b3@gmail.com'
+ 
+for address in addresslist:
+    toaddrs  = address
+    TEXT = 'This a python automated message'
+    SUBJECT = 'python test'
+    msg = 'Subject: %s\n\n%s' % (SUBJECT, TEXT)
+ 
+ 
+    # Your gmail Credentials
+    username = 'chaitanya19924b3'
+    password = 'chaitanya4b3'
+ 
+    # Sending the mail
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.starttls()
+    server.login(username,password)
+    server.sendmail(fromaddr, toaddrs, msg)
+    server.quit()
