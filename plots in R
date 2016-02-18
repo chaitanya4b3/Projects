@@ -1,0 +1,28 @@
+new=read.csv("mobiles.csv",header=TRUE,sep=",")
+total=nrow(new)
+names1<-c("total","Using","not using")
+count=0
+lis={}
+for (i in 1:total)
+{
+pos=regexpr('Yes', new$val[i])
+if(pos==1)
+{
+count=count+1
+}
+}
+remaining=total-count
+val=c(total,count,remaining)
+barplot(val,names.arg=names1,main="Mobile Usage",col="blue",ylim = c(0, 100),border="red")
+print(count)
+count_s=0
+for (i in 1:count)
+{
+pos1=regexpr('APPLE',new$company[1])
+if(pos==1)
+{
+count_s=count_s+1
+}
+}
+plot(count_s)
+
