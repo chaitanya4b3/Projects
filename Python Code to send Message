@@ -1,0 +1,7 @@
+from twilio.rest import TwilioRestClient
+accountSid = "ACfe0d3d85e6651791e3ba266b2268b599"
+authToken = "61a9b3156b86161dba0ef8dcbb5bc1e0"
+twilioClient = TwilioRestClient(accountSid, authToken)
+myTwilioNumber =  "+12515819470"
+destCellPhone = "+919246992040"
+myMessage = twilioClient.messages.create(body = "Object Recognised", from_=myTwilioNumber, to=destCellPhone)
