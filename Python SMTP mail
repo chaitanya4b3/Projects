@@ -15,7 +15,7 @@ for address in addresslist:
  
     # Your gmail Credentials
     username = 'chaitanya19924b3'
-    password = 'chaitanya4b3'
+    password = '****'
  
     # Sending the mail
     server = smtplib.SMTP('smtp.gmail.com',587)
