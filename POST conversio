@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<string.h>
+int extract(char *str,char *dest,char *datetime,
+char *name,char *password,char *longitude,
+	char *latitude,
+	char *software_version
+ )
+{
+	int i,n,flag1,flag2,length=0;
+	char dom[500];
+	char temp[50];
+	char post[200];
+
+    for(i=0;i<strlen(str);i++)
+    {
+    	if(str[i]=='w')
+    	{
+    		if(str[i+1]=='w')
+    		if(str[i+2]=='w')
+    		flag1=i;
+		}
+	}
+for(i=0;i<strlen(str)-1;i++)
+    {
+    	if(str[i]=='c')
+    	{
+    		if(str[i+1]=='o')
+    		if(str[i+2]=='m')
+    		flag2=i+3;
+		}
+	}
+	int r=0;
+for(i=flag1;i<flag2;i++)
+{
+	
+	dom[r]=str[i];
+	r++;
+	length++;
+}
+//sprintf(dom,"domain is %s\n",dom);
+r=0;
+for(i=flag2+1;i<=strlen(str);i++)
+{
+	post[r]=str[i];
+	r++;
+}
+
+//sprintf(post,"post is %s",post);
+sprintf(temp,"POST %s\n",post);
+strcat(dest,temp);
+sprintf(temp,"Host :%s\n",dom);
+strcat(dest,temp);
+
+sprintf(temp,"Content-length :\[%d\]\n",length);
+strcat(dest,temp);
+strcat(dest,"Content-Type: application/x-www-form-urlencoded\n");
+strcat(dest,"\n\n");
+strcat(dest,"{\n");	
+sprintf(temp,"\t\"Datetime\" \"%s\"\n",datetime);
+strcat(dest,temp);
+sprintf(temp,"\t\"Name\" \"%s\"\n",name);
+strcat(dest,temp);	
+sprintf(temp,"\t\"Password\" \"%s\"\n",password);
+strcat(dest,temp);
+strcat(dest,"\tadditionalInfo{:\n");
+sprintf(temp,"\t\t\"Longitude\" :%s,\n",longitude);
+strcat(dest,temp);
+sprintf(temp,"\t\t\"Latitude\" :%s,\n",latitude);
+strcat(dest,temp);
+sprintf(temp,"\t\t\"Software Version\" :%s\n",software_version);
+strcat(dest,temp);
+strcat(dest,"},");
+printf("%s",dest);
+}
+int main()
+{
+	char *ch="https://www.cellcomm.com/test/abc.php";
+	char dest[500];
+	char *datetime="2016-04-13 10:43:22";
+	char *name="FMTEST";
+	char *password="FMTEST";
+	char *longitude="79.10342";
+	char *latitude="17.87235";
+	char *software_version="PLS2.5.0.12";
+	extract(ch,dest,datetime,name,password,longitude,latitude,software_version);
+	
+}
